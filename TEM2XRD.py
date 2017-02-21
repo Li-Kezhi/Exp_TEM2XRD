@@ -4,7 +4,7 @@
 Reaction rate post-treatment script
 """
 
-__author__ = "LI Kezhi" 
+__author__ = "LI Kezhi"
 __date__ = "$2017-01-05$"
 __version__ = "1.0.0"
 
@@ -23,7 +23,7 @@ SOURCE_NAME = './Examples/FFTofHRTEM.jpg'
 
 # Read data
 image = mpimg.imread(SOURCE_NAME)
-imgShape = image[:,:,0].shape
+imgShape = image[:, :, 0].shape
 plt.imshow(image)
 plt.show()
 
@@ -41,8 +41,8 @@ RESOLUTION = 1.5
 ##### Data Manipulation #####
 counts = np.zeros((int(round(180.0 / RESOLUTION)) + 1, 2))
 for i in xrange(counts.shape[0]):
-    counts[i,0] = RESOLUTION * (i + 0.5)
-counts[-1,0] = RESOLUTION * i
+    counts[i, 0] = RESOLUTION * (i + 0.5)
+counts[-1, 0] = RESOLUTION * i
 
 for i in xrange(imgShape[0]):
     for j in xrange(imgShape[1]):
@@ -53,20 +53,20 @@ for i in xrange(imgShape[0]):
             GroupNumber = int(round(TwoTheta/RESOLUTION))
             counts[GroupNumber, 1] += image[i, j, 0]
 
-##### Reports ##### 
+##### Reports #####
 # Generate Report
 reportName = SOURCE_NAME.split('.jpg')[0] + '_report.txt'
 output = file(reportName, 'w')
 output.writelines('2Theta  counts\n')
 for i in xrange(counts.shape[0]):
-    output.writelines('%7.3f   %15d\n' % (counts[i,0], counts[i,1]))
+    output.writelines('%7.3f   %15d\n' % (counts[i, 0], counts[i, 1]))
 output.close()
 
 # Plotting
 @mpltex.presentation_decorator
 def plot(counts):
     fig, ax = plt.subplots()
-    ax.plot(counts[:,0], counts[:,1])
+    ax.plot(counts[:, 0], counts[:, 1])
 
     ax.set_xlim(0, 180)
 
